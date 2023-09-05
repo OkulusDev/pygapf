@@ -1,0 +1,5 @@
+colorama==0.4.6
+Nuitka==1.8
+ordered-set==4.1.0
+python-magic==0.4.27
+zstandard==0.21.0
