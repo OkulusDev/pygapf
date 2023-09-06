@@ -24,6 +24,7 @@ SOFTWARE.
 """
 import sys
 import os
+from pathlib import Path
 from colorama import Fore, Style, Back
 from magic import Magic
 
@@ -46,6 +47,8 @@ def msg(text: str, color: str) -> str:
 def read_file(filename: str):
 	try:
 		filetype = mime.from_file(filename)
+		bytes_size = os.path.getsize(filename)
+		owner_file = Path(filename).owner()
 
 		with open(filename, 'r') as file:
 			text = file.read()
@@ -53,7 +56,8 @@ def read_file(filename: str):
 			line_count = len(lines)
 
 		os.system('clear')
-		print(f'{Style.DIM}Файл {filename}\tТип файла: {filetype}\tКоличество строк: {line_count}{Style.RESET_ALL}')
+		print(f'{Style.DIM}Чтение начато{Style.RESET_ALL}')
+		print(f'{Style.DIM}Файл {filename}\tТип файла: {filetype}\tКоличество строк: {line_count}\tРазмер в байтах: {bytes_size}\tВладелец: {owner_file}{Style.RESET_ALL}')
 
 		print(Style.BRIGHT)
 		line_counter = 1
@@ -63,6 +67,7 @@ def read_file(filename: str):
 		print(Style.RESET_ALL, Style.BRIGHT)
 
 		print(f'{Style.DIM}Чтение закончено{Style.RESET_ALL}')
+		print(f'{Style.DIM}Файл {filename}\tТип файла: {filetype}\tКоличество строк: {line_count}\tРазмер в байтах: {bytes_size}\tВладелец: {owner_file}{Style.RESET_ALL}')
 	except PermissionError:
 		print(f'[!] Файл {filename} не доступен')
 	except FileNotFoundError:
